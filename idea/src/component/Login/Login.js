@@ -1,48 +1,72 @@
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
-import React, {useState} from 'react'
+import React,{useState} from 'react';
+import axiosInstance  from '../../axios';
+import { useNavigate } from 'react-router-dom';
+import {Form, 
+    Col,
+    Row,
+    Button,
+    Container,}from 'react-bootstrap';
+import './Login.css'
 
-function Login(){
+function Login (){
+    const history = useNavigate();
+    const initialFormData = Object.freeze({
+        email:'',
+        password:'',
+    });
 
-  const [userName,setUserName] = useState('')
-  const [passWord, setPassWord]= useState('')
+    const [formData,setFormData]=useState(initialFormData)
 
-  // const [credential,setCredential] = useState( username:'', password:'');
+    const handleChange = (e) =>{
+        setFormData({
+            ...formData,
+            [e.target.name]:e.target.value.trim(),
+        })
+    }
 
-  const login = (event) =>{
-    console.log('login')
-  }
-return(
-    <div>
-  <Form>
-    <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-    <Form.Label column sm={2}>
-      Email
-    </Form.Label>
-    <Col sm={10}>
-      <Form.Control type="email" placeholder="Email" name="username" />
-    </Col>
-  </Form.Group>
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        console.log(formData);
 
-  <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-    <Form.Label column sm={2}>
-      Password
-    </Form.Label>
-    <Col sm={10}>
-      <Form.Control type="password" placeholder="Password" name="password"/>
-    </Col>
-  </Form.Group>
+        axiosInstance
+            .post(`api/auth/signin`,{
+                user:
+                {email: formData.email,
+                password:formData.password,}
+        }).then((res)=>{
+            localStorage.setItem('token',res.data.token);
+            axiosInstance.defaults.headers['Authorization'] = 
+              'JWT '+localStorage.getItem('token')
+            history.push('/')
+        })
+    }
+    return(
 
-  <Form.Group as={Row} className="mb-3">
-    <Col sm={{ span: 10, offset: 2 }}>
-      <Button onClick={login} type="submit">Log in</Button>
-      <Button type="submit">Sign Up</Button>
-    </Col>
-  </Form.Group>
-</Form>
-</div>
+          <div className="Login">
+            <Container>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group size="lg" controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                autoFocus
+                type="email"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group size="lg" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Button block size="lg" type="submit" >
+              Login
+            </Button>
+          </Form>
+          </Container>
+        </div>
 )
 }
+
 export default Login
