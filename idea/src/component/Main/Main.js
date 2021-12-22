@@ -14,13 +14,15 @@ import axiosInstance from '../../axios';
 
 
 function Main (){
-  const history = useNavigate();
   const initialForm = Object.freeze({
     title:'',
     content:'',
   })
   const [form,setForm]=useState(initialForm)
-
+  const [ideasList,setIdeasList]=useState([{
+    title:'',
+    content:''
+  }])
   const handleChange = (e) =>{
     setForm({
       ...form,
@@ -41,9 +43,27 @@ function Main (){
         localStorage.setItem('token',res.data.token);
             axiosInstance.defaults.headers['Authorization'] = 
               'JWT '+localStorage.getItem('token')
-        fetch("http://localhost:8000/ideas/")
+          fetch("http://localhost:8000/ideas/")
+            .then((response) => response.json())
+            .then((data) => setIdeasList(data));
+        
       })
     }
+
+const ideaReadList = ideasList.map = (idea=>{
+  return (     
+  <Card style={{ width: '18rem' }}>
+  <Card.Body>
+  <Card.Title>{idea.title}</Card.Title>
+  <Card.Text>
+    {idea.content}
+  </Card.Text>
+    <Button variant='dark'>Delete</Button>
+</Card.Body>
+</Card>) 
+})
+
+
 return(
     
   <div>
@@ -60,18 +80,8 @@ return(
     />
   </FloatingLabel>
 </>
-<Button type="submit" onClick={handleSubmit}>submit</Button>
-    <ul>
-      <Card style={{ width: '18rem' }}>
-    <Card.Body>
-    <Card.Title>Idea Title</Card.Title>
-    <Card.Text>
-      Inot anything that come up in your mind
-    </Card.Text>
-      <Button variant='dark'>Delete</Button>
-  </Card.Body>
-</Card>
-    </ul>
+<Button type="submit" onClick={handleSubmit}>ADD</Button>
+
     </div>
 
 )

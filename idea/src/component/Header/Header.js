@@ -21,11 +21,11 @@ function Header () {
   </Navbar.Collapse>
   </Container>
 </Navbar> */}
-<Navbar bg="dark" variant="dark">
+<Navbar fixed="bottom"bg="dark" variant="dark">
     <Container>
     <Navbar.Brand href="#"><h1>Ideas</h1></Navbar.Brand>
     <Nav className="me-auto">
-      <Nav.Link href="#">LogIn</Nav.Link>
+      <Nav.Link href="/">LogIn</Nav.Link>
       <Nav.Link href="#sign-up">SignUp</Nav.Link>
       <Nav.Link href="#profile">Profile</Nav.Link>
     </Nav>

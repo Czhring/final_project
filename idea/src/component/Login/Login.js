@@ -43,6 +43,7 @@ function Login (){
     return(
 
           <div className="Login">
+              <h1>LogIn</h1>
             <Container>
           <Form onSubmit={handleSubmit}>
             <Form.Group size="lg" controlId="email">
