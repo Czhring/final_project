@@ -6,12 +6,11 @@ const axiosInstance = axios.create({
     baseURL:baseURL,
     timeout :5000,
     headers:{
-        'Access-Control-Allow-Origin' : '*',
         Authorization:localStorage.getItem('token')
-            ?'JWT '
+            ?'Token '+localStorage.getItem('token')
             :null,
         'Content-Type':'application/json',
-        accept:'application.json',
+        accept:'*/*',
     }
 })
 

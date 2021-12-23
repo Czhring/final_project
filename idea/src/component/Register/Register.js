@@ -6,7 +6,7 @@ import {Form,
     Row,
     Button,}from 'react-bootstrap';
 
-function SignUp (){
+function Register (){
     const history = useNavigate();
     const initialFormData = Object.freeze({
         email:'',
@@ -27,18 +27,19 @@ function SignUp (){
         console.log(formData);
 
         axiosInstance
-            .post(`api/auth/signup`,{
+            .post(`api/auth/signup/`,{
                 user:
                 {email: formData.email,
                 password:formData.password,}
         }).then((res)=>{
-            history.push('/sign-in');
+            history.push('/');
             console.log(res);
             console.log(res.data);
         })
     }
     return(
         <div>
+          <h1></h1>
         <Form>
           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
@@ -68,4 +69,4 @@ function SignUp (){
 )
 }
 
-export default SignUp
+export default Register
