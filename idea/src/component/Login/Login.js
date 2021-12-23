@@ -3,9 +3,10 @@ import axiosInstance from "../../axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Col, Row, Button, Container } from "react-bootstrap";
 import "./Login.css";
+import {Link}  from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 function Login() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const initialLoginData = Object.freeze({
     email: "",
     password: "",
@@ -33,7 +34,7 @@ function Login() {
         localStorage.setItem("token", res.data.user.token);
         axiosInstance.defaults.headers.common["Authorization"] =
           "Token " + localStorage.getItem("token");
-        this.props.history.push('/main');
+          navigate('/main');
       });
   };
   return (
@@ -49,9 +50,11 @@ function Login() {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" name="password"onChange={handleChange} />
           </Form.Group>
+
           <Button className="login-button"block size="lg" type="submit" variant="dark">
             Login
           </Button>
+
         </Form>
       </Container>
     </div>

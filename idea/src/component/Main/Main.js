@@ -5,7 +5,6 @@ import
   Button,
   Card}
    from 'react-bootstrap'
-   import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router"
 
@@ -69,18 +68,30 @@ const makeIdeaListCall = () =>{
 
   console.log(ideasList)
 
-  // let {id} =useParams();
-  // console.log(id)
-  // const handleDelete = (event)=>{
-  //   event.preventDefault();
-  //   fetch(`http://localhost:8000/ideas/${id}`,{
-  //     method:'Delete',
-  //     headers:{
-  //       'Content-Type':'application/json',
-  //       "Authorization":"Token "+localStorage.token
-  //     }
-  //   })
-  // }
+
+
+  const handleDelete =(id)=>{
+    return (event)=>{
+    event.preventDefault();
+    fetch(`http://localhost:8000/idea/${id}/`,{
+      method:'Delete',
+      headers:{
+        'Content-Type':'application/json',
+        "Authorization":"Token "+localStorage.token
+      }
+    }).then((res)=>{
+      fetch("http://localhost:8000/ideas/",{
+      headers:{
+      "Authorization":"Token "+localStorage.token
+    }})
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+              setIdeasList(data)});
+        console.log(res)
+      })
+  }}
+
 const ideaReadList = ideasList.map(idea=>{
   return(
     <div>
@@ -90,7 +101,7 @@ const ideaReadList = ideasList.map(idea=>{
     <Card.Text>
     {idea.content}
     </Card.Text>
-    <Button  variant="dark">Delete</Button>
+    <Button onClick={handleDelete(idea.id)} variant="dark">Delete</Button>
   </Card.Body>
 </Card>
     </div>  
@@ -99,14 +110,15 @@ const ideaReadList = ideasList.map(idea=>{
 return(
     
   <div>
+          <h1>Let Come Up Some New Ideas</h1>
       <>
     <FloatingLabel controlId="floatingTextarea" label="title" className="mb-3">
-    <Form.Control as="textarea" name="title"placeholder="Leave a comment here" onChange={handleChange}/>
+    <Form.Control as="textarea" name="title"placeholder="title" onChange={handleChange}/>
   </FloatingLabel>
   <FloatingLabel controlId="floatingTextarea2" label="Contents">
     <Form.Control
       as="textarea"
-      placeholder="Leave a comment here"
+      placeholder="content"
       style={{ height: '100px' }}
       name="content"
       onChange={handleChange}

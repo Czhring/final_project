@@ -5,9 +5,9 @@ import {Form,
     Col,
     Row,
     Button,}from 'react-bootstrap';
-
+import {Link}  from 'react-router-dom';
 function Register (){
-    const history = useNavigate();
+    const navigate = useNavigate();
     const initialFormData = Object.freeze({
         email:'',
         password:'',
@@ -32,14 +32,14 @@ function Register (){
                 {email: formData.email,
                 password:formData.password,}
         }).then((res)=>{
-            history.push('/');
+            navigate('/');
             console.log(res);
             console.log(res.data);
         })
     }
     return(
         <div>
-          <h1></h1>
+          <h1>Register</h1>
         <Form>
           <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
