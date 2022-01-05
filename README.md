@@ -2,7 +2,6 @@
 
 ## Description
 A app help you when you running out of ideas, you can using this app to list out all the ideas and filter out the one you want and deleted the other. I am going to use react to build up the front end and django for the backend.
-## Available Scripts
 
 ## Project Links
 In the project directory, you can run:
