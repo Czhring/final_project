@@ -1,9 +1,19 @@
 import axios from 'axios'
 
-const baseURL = 'http://127.0.0.1:8000/';
-
+let apiUrl
+const apiUrls = {
+  // your production api url
+  production: 'https://glacial-tundra-91410.herokuapp.com',
+  // your development api url
+  development: 'http://localhost:8000'
+}// check if development or production
+if (window.location.hostname === 'localhost') {
+    apiUrl = apiUrls.development
+  } else {
+    apiUrl = apiUrls.production
+  }
 const axiosInstance = axios.create({
-    baseURL:baseURL,
+    baseURL:apiUrl,
     timeout :5000,
     headers:{
         Authorization:localStorage.getItem('token')
