@@ -10,12 +10,6 @@ In the project directory, you can run:
 - Deployment Link: TBD
 
 ## Wireframes
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
 - [Mobile/Tablet/Desktop Wireframes](![WechatIMG12](https://user-images.githubusercontent.com/92180822/146595834-f380c2e7-486a-444c-8cf0-c327593bd42b.jpeg)
 
 #### MVP
